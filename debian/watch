@@ -1,0 +1,7 @@
+# This watch file works for getting the upstream version number, but probably
+# won't work for the actual download due to the stupid Sourceforge
+# redirection.  Since I don't anticipate a new upstream release, at least from
+# this location, this probably isn't enough of a problem to bother fixing.
+
+version=3
+http://sf.net/rssh/rssh-([\d.]+)\.tar\.gz$

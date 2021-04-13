@@ -1,0 +1,51 @@
+# Translation of rssh debconf templates to German
+# Copyright (C) Jens Nachtigall <nachtigall@web.de>, 2004.
+# Copyright (C) Helge Kreutzmann <debian@helgefjell.de>, 2007.
+# This file is distributed under the same license as the rssh package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rssh 2.3.2-4\n"
+"Report-Msgid-Bugs-To: rra@debian.org\n"
+"POT-Creation-Date: 2007-04-11 19:20-0700\n"
+"PO-Revision-Date: 2007-04-12 19:01+0200\n"
+"Last-Translator: Helge Kreutzmann <debian@helgefjell.de>\n"
+"Language-Team: German <debian-l10n-german@lists.debian.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want rssh_chroot_helper to be installed setuid root?"
+msgstr "Möchten Sie, dass rssh_chroot_helper setuid root installiert wird?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If you plan to use chroot jails for the users using rssh, the program /usr/"
+"lib/rssh/rssh_chroot_helper has to be installed setuid root so that it can "
+"chroot into the jail when the user connects.  If you are not using chroot "
+"jails, it's better to not install setuid root programs you don't need."
+msgstr ""
+"Falls Sie für Benutzer, die rssh verwenden, eine Chroot-Umgebung planen, "
+"muss das Programm /usr/lib/rssh/rssh_chroot_helper setuid root installiert "
+"werden, so dass es bei der Verbindungsaufnahme eines Benutzers ein chroot in "
+"das Gefängnis (jail) vornehmen kann. Falls Sie keine Chroot-Gefängnisse "
+"verwenden, ist es besser, keine setuid root-Programme zu installieren, die "
+"Sie nicht benötigen."
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If in doubt, install it without setuid root.  If you later decide to use "
+"chroot jails, you can change this configuration by running dpkg-reconfigure "
+"rssh."
+msgstr ""
+"Falls Sie sich unsicher sind, installieren Sie es nicht setuid root. Falls "
+"Sie sich später dazu entschließen, Chroot-Gefängnisse zu verwenden, können "
+"Sie diese Entscheidung ändern, indem Sie »dpkg-reconfigure rssh« ausführen."

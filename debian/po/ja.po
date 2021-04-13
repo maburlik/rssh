@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: rssh 2.3.2-4\n"
+"Report-Msgid-Bugs-To: rra@debian.org\n"
+"POT-Creation-Date: 2007-04-11 19:20-0700\n"
+"PO-Revision-Date: 2007-05-04 23:37+0900\n"
+"Last-Translator: Hideki Yamane (Debian-JP) <henrich@debian.or.jp>\n"
+"Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want rssh_chroot_helper to be installed setuid root?"
+msgstr "rssh_chroot_helper を root に SUID してインストールしますか?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If you plan to use chroot jails for the users using rssh, the program /usr/"
+"lib/rssh/rssh_chroot_helper has to be installed setuid root so that it can "
+"chroot into the jail when the user connects.  If you are not using chroot "
+"jails, it's better to not install setuid root programs you don't need."
+msgstr ""
+"rssh を利用するユーザに chroot jail を適用する予定の場合、 /usr/lib/rssh/"
+"rssh_chroot_helper プログラムは SUID ビットを root ユーザにセットする必要があ"
+"ります。これで、ユーザが接続する際に jail に chroot 可能になります。chroot "
+"jail を使わない場合、必要ないプログラムには root に SUID してインストールしな"
+"い方が良いでしょう。"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If in doubt, install it without setuid root.  If you later decide to use "
+"chroot jails, you can change this configuration by running dpkg-reconfigure "
+"rssh."
+msgstr ""
+"よくわからない場合、root に SUID をしないでインストールすることをお勧めしま"
+"す。後から chroot jail を利用しようと考え直した場合は、dpkg-reconfigure rssh "
+"を実行することで設定変更が可能です。"

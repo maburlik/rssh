@@ -1,0 +1,58 @@
+#
+#    Translators, if you are not familiar with the PO format, gettext
+#    documentation is worth reading, especially sections dedicated to
+#    this format, e.g. by running:
+#         info -n '(gettext)PO Files'
+#         info -n '(gettext)Header Entry'
+#
+#    Some information specific to po-debconf are available at
+#            /usr/share/doc/po-debconf/README-trans
+#         or http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+#    Developers do not need to manually edit POT or PO files.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rssh 2.2.3-2\n"
+"Report-Msgid-Bugs-To: rra@debian.org\n"
+"POT-Creation-Date: 2007-04-11 19:20-0700\n"
+"PO-Revision-Date: 2007-04-12 08:31+0100\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want rssh_chroot_helper to be installed setuid root?"
+msgstr "Vill du att rssh_chroot_helper ska installeras setuid root?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If you plan to use chroot jails for the users using rssh, the program /usr/"
+"lib/rssh/rssh_chroot_helper has to be installed setuid root so that it can "
+"chroot into the jail when the user connects.  If you are not using chroot "
+"jails, it's better to not install setuid root programs you don't need."
+msgstr ""
+"Om du planerar att använda chroot-fängelser för användare som använder rssh "
+"måste programmet /usr/lib/rssh/rssh_chroot_helper installeras setuid root så "
+"att det kan köra chroot in i fängelset när användaren ansluter. Om du väljer "
+"att inte använda chroot-fängelser är det bättre att inte installera program "
+"som du inte behöver som setuid root. "
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If in doubt, install it without setuid root.  If you later decide to use "
+"chroot jails, you can change this configuration by running dpkg-reconfigure "
+"rssh."
+msgstr ""
+"Om du är osäker bör du installera det utan setuid root. Om du bestämmer dig "
+"senare för att använda chroot-fängelser kan du ändra den här konfigurationen "
+"genom att köra dpkg-reconfigure rssh."

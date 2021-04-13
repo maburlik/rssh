@@ -1,0 +1,54 @@
+# Indonesian translation for podebconf rssh template.
+# Copyright (C) 2016 THE rssh COPYRIGHT HOLDER
+# This file is distributed under the same license as the rssh package.
+# Translator:
+# Izharul Haq <atoz.chevara@yahoo.com>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rssh 2.3.4-4\n"
+"Report-Msgid-Bugs-To: rra@debian.org\n"
+"POT-Creation-Date: 2007-04-11 19:20-0700\n"
+"PO-Revision-Date: 2016-08-26 19:53+0700\n"
+"Last-Translator: Izharul Haq <atoz.chevara@yahoo.com>\n"
+"Language-Team: L10N Debian Indonesian <debian-l10n-indonesian@lists.debian."
+"org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.10\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: id\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want rssh_chroot_helper to be installed setuid root?"
+msgstr "Apakah anda ingin rssh_chroot_helper untuk dipasangkan setuid root?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If you plan to use chroot jails for the users using rssh, the program /usr/"
+"lib/rssh/rssh_chroot_helper has to be installed setuid root so that it can "
+"chroot into the jail when the user connects.  If you are not using chroot "
+"jails, it's better to not install setuid root programs you don't need."
+msgstr ""
+"Jika anda berencana menggunakan chroot jails untuk pengguna menggunakan "
+"rssh, program /usr/lib/rssh/rssh_chroot_helper harus dipasang setuid root "
+"sehingga chroot ke jail ketika pengguna terhubung.  Jika anda tidak ingin "
+"menggunakan chroot jails, akan lebih baik untuk tidak memasang program "
+"setuid root karena anda tidak memerlukannya."
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If in doubt, install it without setuid root.  If you later decide to use "
+"chroot jails, you can change this configuration by running dpkg-reconfigure "
+"rssh."
+msgstr ""
+"Jika ragu, pasang ia tanpa setuid root.  Jika nantinya anda ingin "
+"menggunakan chroot jails, anda dapat merubah konfigurasi ini dengan "
+"menjalankan dpkg-reconfigure rssh."

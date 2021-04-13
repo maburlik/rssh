@@ -1,0 +1,30 @@
+From: Russ Allbery <rra@debian.org>
+Date: Sat, 7 Dec 2013 18:32:55 -0800
+Subject: Fix spelling errors in manual pages
+
+---
+ rssh.1 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/rssh.1 b/rssh.1
+index caa2636..a682f70 100644
+--- a/rssh.1
++++ b/rssh.1
+@@ -24,7 +24,7 @@ those commands.  It is intended primarily to work with OpenSSH (see
+ http://www.openssh.com), but may work with other implementations.
+ .P
+ The system administrator should install the shell on the restricted system.
+-Then the password file entry of any user for whom it is desireable to provide
++Then the password file entry of any user for whom it is desirable to provide
+ restricted access should be edited, such that their shell is \fBrssh\fP. For
+ example:
+ .P
+@@ -148,7 +148,7 @@ programs other than what are absolutely necessary to provide the service you
+ are trying to provide.  This prevents them from running standard system
+ commands.
+ .P
+-Then, make sure the user's files inside the jail are on a seperate filesystem
++Then, make sure the user's files inside the jail are on a separate filesystem
+ from your system's executables.  If possible in your environment, make sure
+ you mount this filesystem using the
+ .IR noexec " and " nosuid

@@ -1,0 +1,22 @@
+From: Russ Allbery <rra@debian.org>
+Date: Sat, 7 Dec 2013 18:32:55 -0800
+Subject: Fix invalid option error
+
+Don't refer to all invalid options as invalid scp options.
+---
+ util.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/util.c b/util.c
+index f98d2bc..3affc0a 100644
+--- a/util.c
++++ b/util.c
+@@ -152,7 +152,7 @@ bool opt_filter(char **vec, const char opt)
+ 	while (vec && *vec){
+ 		if (opt_exist(*vec, opt)){
+ 			fprintf(stderr, "\nillegal insecure %c option", opt);
+-			log_msg("insecure %c option in scp command line!", opt);
++			log_msg("insecure %c option in command line!", opt);
+ 			return TRUE;
+ 		}
+ 		vec++;

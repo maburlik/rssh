@@ -1,0 +1,50 @@
+# Italian translation of po-debconf templates for rssh.
+# Copyright (C) 2005 Software in the Public Interest
+# This file is distributed under the same license as the rssh package.
+# Luca Monducci <luca.mo@tiscali.it>, 2005-2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rssh 2.3.2 italian debconf templates\n"
+"Report-Msgid-Bugs-To: rra@debian.org\n"
+"POT-Creation-Date: 2007-04-11 19:20-0700\n"
+"PO-Revision-Date: 2007-04-14 10:45+0200\n"
+"Last-Translator: Luca Monducci <luca.mo@tiscali.it>\n"
+"Language-Team: Italian <debian-l10n-italian@lists.debian.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want rssh_chroot_helper to be installed setuid root?"
+msgstr "Si vuole che rssh_chroot_helper sia installato con setuid root?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If you plan to use chroot jails for the users using rssh, the program /usr/"
+"lib/rssh/rssh_chroot_helper has to be installed setuid root so that it can "
+"chroot into the jail when the user connects.  If you are not using chroot "
+"jails, it's better to not install setuid root programs you don't need."
+msgstr ""
+"Se si vogliono usare delle gabbie chroot per gli utenti che usano rssh, è "
+"necessario che il programma /usr/lib/rssh/rssh_chroot_helper sia installato "
+"con setuid root per poter inserire l'utente nella gabbia al momento della "
+"connessione. Se non si usano le gabbie chroot, si consiglia di non "
+"installare programmi con setuid root."
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If in doubt, install it without setuid root.  If you later decide to use "
+"chroot jails, you can change this configuration by running dpkg-reconfigure "
+"rssh."
+msgstr ""
+"In caso di dubbi, installare senza setuid root. Se in seguito si decide di "
+"usare le gabbie chroot, modificare la configurazione con dpkg-reconfigure "
+"rssh."

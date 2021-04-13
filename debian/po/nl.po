@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rssh\n"
+"Report-Msgid-Bugs-To: rra@debian.org\n"
+"POT-Creation-Date: 2007-04-11 19:20-0700\n"
+"PO-Revision-Date: 2007-04-12 16:14+0100\n"
+"Last-Translator: Bart Cornelis <cobaco@skolelinux.no>\n"
+"Language-Team: debian-l10n-dutch <debian-l10n-dutch@lists.debian.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Dutch\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want rssh_chroot_helper to be installed setuid root?"
+msgstr "Wilt u rssh_chroot_helper installeren met SUID-bit ingesteld op root?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If you plan to use chroot jails for the users using rssh, the program /usr/"
+"lib/rssh/rssh_chroot_helper has to be installed setuid root so that it can "
+"chroot into the jail when the user connects.  If you are not using chroot "
+"jails, it's better to not install setuid root programs you don't need."
+msgstr ""
+"Als u van plan bent om 'chroot'-gevangenissen voor de rssh-gebruikers te "
+"gebruiken dient het programma /usr/lib/rssh/rssh_chroot_helper geïnstalleerd "
+"te worden met de SUID-bit ingesteld op root. Dit is nodig opdat de gebruik "
+"chroot naar de gevangenis te kunnen schakellen bij het inloggen. Als u geen "
+"'chroot'-gevangenissen gebruikt laat u de SUID-bit best gedeactiveerd."
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If in doubt, install it without setuid root.  If you later decide to use "
+"chroot jails, you can change this configuration by running dpkg-reconfigure "
+"rssh."
+msgstr ""
+"Bij twijfel installeert u best met de SUID-bit gedeactiveerd. Als u later "
+"alsnog 'chroot'-gevangenissen wilt gaan gebruiken kunt u dit altijd "
+"aanpassen via het commando 'dpkg-reconfigure rssh'."

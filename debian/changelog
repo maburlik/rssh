@@ -1,0 +1,666 @@
+rssh (2.3.4-7ubuntu0.1) bionic-security; urgency=medium
+
+  * SECURITY UPDATE: Command injection
+    - debian/patches/0009-Verify-scp-command-options.patch: Validate
+      the allowed scp command line and only permit the flags used in
+      server mode and only a single argument, to attempt to prevent use
+      of ssh options to run arbitrary code on the server.  This will
+      break scp -3 to a system running rssh, which seems like an
+      acceptable loss. (LP #1815935)
+    - debian/patches/0007-Verify-rsync-command-options.patch: Tighten
+      validation of the rsync command line to require --server be the
+      first argument, which should prevent initiation of an outbound rsync
+      command from the server, which in turn might allow execution of
+      arbitrary code via ssh configuration similar to scp.
+
+      Also reject rsync --daemon and --config command-line options, which
+      can be used to run arbitrary commands.  Thanks, Nick Cleaton.
+
+      Do not stop checking the rsync command line at --, since this can
+      be an argument to some other option and later arguments may still
+      be interpreted as options.  In the few cases where one needs to
+      rsync to files named things like --rsh, the client can use ./--rsh
+      instead.  Thanks, Nick Cleaton.
+    - debian/patches/0010-Check-command-line-after-chroot.patch: Unset
+      the HOME environment variable when running rsync to prevent popt
+      (against which rsync is linked) from loading a ~/.popt
+      configuration file, which can run arbitrary commands on the server
+      or redefine command-line options to bypass argument checking.
+      Thanks, Nick Cleaton.
+    - CVE-2019-1000018
+    - CVE-2019-3463
+    - CVE-2019-3464
+
+ -- Mike Salvatore <mike.salvatore@canonical.com>  Wed, 10 Apr 2019 13:23:31 -0400
+
+rssh (2.3.4-7) unstable; urgency=medium
+
+  * Change the specified mode of conf_convert in the Debian patch to be
+    0644, since dpkg doesn't support modes the way that Git does and will
+    ignore the mode anyway.  This mismatch was breaking use of dgit for
+    this package.
+
+ -- Russ Allbery <rra@debian.org>  Sat, 23 Dec 2017 20:13:24 -0800
+
+rssh (2.3.4-6) unstable; urgency=medium
+
+  * Add Rules-Requires-Root: no.
+  * Update to debhelper compatibility level V11.
+    - Remove now-useless build dependency on dh-autoreconf.
+  * Clean up trailing whitespace in debian/changelog.
+  * Update standards version to 4.1.2 (no changes required).
+
+ -- Russ Allbery <rra@debian.org>  Sun, 17 Dec 2017 16:21:18 -0800
+
+rssh (2.3.4-5) unstable; urgency=medium
+
+  * Enable all hardening flags.
+  * Fix another spelling error in the rssh man page, caught by Lintian.
+  * Translation updates:
+    - Indonesian, thanks Izharul Haq.  (Closes: #835621)
+  * Switch to the DEP-14 branch layout and update debian/gbp.conf and
+    Vcs-Git accordingly.
+  * Run wrap-and-sort -ast on packaging files.
+  * Switch to https for Vcs-Git and Vcs-Browser URLs.
+  * Fix duplicate license clause in debian/copyright.
+  * Update standards version to 3.9.8 (no changes required).
+
+ -- Russ Allbery <rra@debian.org>  Mon, 05 Sep 2016 15:39:58 -0700
+
+rssh (2.3.4-4) unstable; urgency=low
+
+  * Fix typo in the example mkchroot script that causes it to fail to
+    copy the libnss compat modules.  Patch from Jeremy Jongepier.
+    (Closes: #729294)
+  * This package is now maintained using gbp pq from git-buildpackage.
+    Remove the TopGit glue and the obsolete README.source package and
+    rename the patches based on the export convention of gbp pq.
+  * Drop override to use xz compression for the binary package.  This is
+    now the default in dpkg-buildpackage.
+  * Update standards version to 3.9.5 (no changes required).
+  * Translation updates:
+    - Portuguese (Brazilian), thanks Fernando Ike de Oliveira.
+      (Closes: #723148)
+  * Reformat translations with debconf-updatepo.  Add some missing
+    Language fields and update the Report-Msgid-Bugs-To address.
+
+ -- Russ Allbery <rra@debian.org>  Sat, 07 Dec 2013 19:18:35 -0800
+
+rssh (2.3.4-3) unstable; urgency=low
+
+  * Patch the upstream build system to honor CFLAGS and CPPFLAGS as passed
+    to configure.  This fixes use of hardening flags during the build.
+    Thanks to Simon Ruderich for the patch.  (Closes: #709941)
+
+ -- Russ Allbery <rra@debian.org>  Tue, 28 May 2013 14:37:10 -0700
+
+rssh (2.3.4-2) unstable; urgency=low
+
+  * Upload to unstable.
+  * Fix implicit function declaration compiler warning from the svnserve
+    patch.
+  * Use xz compression for the Debian source and binary package.
+  * Canonicalize the Vcs-Git and Vcs-Browser control fields.
+  * Update standards version to 3.9.4 (no changes required).
+
+ -- Russ Allbery <rra@debian.org>  Sat, 11 May 2013 17:09:30 -0700
+
+rssh (2.3.4-1) experimental; urgency=low
+
+  * New upstream release.
+    - Merges fixes/command-line-checking.
+    - Fix a (probably not exploitable) flaw in determining the command
+      to run from the provided command line.
+  * Adjust the installation process for the new upstream behavior of
+    installing rssh.conf as rssh.conf.default.  The Debian package
+    continues to install it as /etc/rssh.conf.
+  * Add new logcheck ignore line for a new upstream log message.
+  * Fix the log level for a notice of global svnserve access to use debug,
+    matching the (patched) behavior for the other program types.
+  * Fix the regular expression in the previous change to correctly match a
+    literal period instead of any character.  (This fix is not critical,
+    but adds further defense in depth.)  Remove an unused variable to
+    silence compiler warnings.  Patch from Tomas Hoger.
+  * Change debian/watch to use the sf.net redirector.
+
+ -- Russ Allbery <rra@debian.org>  Fri, 07 Dec 2012 16:14:37 -0800
+
+rssh (2.3.3-6) unstable; urgency=high
+
+  * Fix several flaws in validation of rsync options.  Ensure --server
+    cannot be hidden from the server by putting it after -- or as the
+    argument to another option.  Verify that the -e option's value matches
+    expectations rather than trying to look for invalid -e option values.
+    (CVE-2012-2251)
+  * Reject the rsync --rsh option even if it does not contain a trailing
+    equal sign.  (CVE-2012-2252)
+
+ -- Russ Allbery <rra@debian.org>  Thu, 22 Nov 2012 12:01:41 -0800
+
+rssh (2.3.3-5) unstable; urgency=medium
+
+  * Apply upstream patch to close security vulnerability that permitted
+    clever manipulation of environment variables on the ssh command line
+    to bypass rssh checking.  (CVE-2012-3478)
+
+ -- Russ Allbery <rra@debian.org>  Fri, 10 Aug 2012 22:14:34 -0700
+
+rssh (2.3.3-4) unstable; urgency=low
+
+  * Force libexecdir to /usr/lib/rssh.  This is not a library package and
+    has no reason to be using the multiarch paths, but picked up the
+    modification to libexecdir as a side effect of the debhelper
+    compatibility level change.  (Closes: #663011)
+
+ -- Russ Allbery <rra@debian.org>  Wed, 07 Mar 2012 16:07:37 -0800
+
+rssh (2.3.3-3) unstable; urgency=low
+
+  * Translation updates:
+    - Danish, thanks Joe Dalton.  (Closes: #659447)
+  * Update debian/copyright to copyright-format 1.0.
+  * Update standards version to 3.9.3 (no changes required).
+
+ -- Russ Allbery <rra@debian.org>  Sun, 04 Mar 2012 21:43:29 -0800
+
+rssh (2.3.3-2) unstable; urgency=low
+
+  * Update examples/mkchroot.sh to include libnss modules in a multiarch
+    subdirectory of /lib if none exist directly in /lib.
+  * Update to debhelper compatibility level V9.
+    - Enable compiler hardening flags, including bindnow and PIE.
+      (Closes: #654155)
+  * Use dh-autoreconf to regenerate the Autotools build system rather than
+    rolling our own equivalent.
+  * Update standards version to 3.9.2 (no changes required).
+
+ -- Russ Allbery <rra@debian.org>  Sun, 05 Feb 2012 19:51:55 -0800
+
+rssh (2.3.3-1) unstable; urgency=low
+
+  * New upstream release.
+    - Exit with non-zero status when fatal() is called.
+    - Merges Debian fixes/config-parse-fatal, fixes/man-page-hyphen, and
+      fixes/missing-config patches.
+  * In the example mkchroot script, also check for and copy over the
+    dependencies of any of the NSS libraries we copy over.  This picks up
+    the libnsl library, which is now required.  Print out a warning that
+    mkchroot doesn't copy over any of the libraries required for other
+    supporting programs (rsync, etc.), only those for scp and sftp.
+    (Closes: #611878)
+  * Update debian/copyright to the current DEP-5 format.
+  * Update to debhelper compatibility level V8.
+  * Update to standards version 3.9.1 (no changes required).
+
+ -- Russ Allbery <rra@debian.org>  Mon, 28 Feb 2011 17:45:00 -0800
+
+rssh (2.3.2-13) unstable; urgency=low
+
+  * When allocating the buffer to tell a locked-out user what commands are
+    supported, add an additional byte for the nul at the end of the
+    string.  (Closes: #601145)
+
+ -- Russ Allbery <rra@debian.org>  Wed, 10 Nov 2010 11:23:07 -0800
+
+rssh (2.3.2-12) unstable; urgency=low
+
+  * If parsing the configuration file fails, abort with an error rather
+    than continuing on and applying the defaults, since the defaults may
+    be wrong for the current user.  Patch from Jon Barber.
+  * Fix spelling error (seperate for separate) in rssh man page.
+  * Remove version from openssh-server dependency since it was older than
+    oldstable.
+  * Update standards version to 3.9.0 (no changes required).
+
+ -- Russ Allbery <rra@debian.org>  Tue, 06 Jul 2010 18:07:47 -0700
+
+rssh (2.3.2-11) unstable; urgency=low
+
+  * Switch to 3.0 (quilt) source format.
+    - Remove build dependency on quilt and debian/rules machinery.
+  * Remove all of the files touched by autoreconf -i.
+  * Remove Jesus Climent from uploaders.  He hasn't had time to work on
+    the package in a while.
+  * Update standards version to 3.8.4 (no changes required).
+
+ -- Russ Allbery <rra@debian.org>  Mon, 29 Mar 2010 11:28:43 -0700
+
+rssh (2.3.2-10) unstable; urgency=low
+
+  * Update standards version 3.8.2 (no changes required).
+  * Translation updates:
+    - Czech, thanks Martin Šín.  (Closes: #533389)
+    - Russian, thanks Yuri Kozlov.  (Closes: #537062)
+
+ -- Russ Allbery <rra@debian.org>  Sat, 18 Jul 2009 19:49:00 -0700
+
+rssh (2.3.2-9) unstable; urgency=low
+
+  * This package is now maintained using Git and TopGit.  A quilt
+    patch series is exported from TopGit branches for the final Debian
+    package.  Update debian/README.source, the Vcs-* control fields, and
+    debian/rules accordingly.
+  * Add support for svnserve (Subversion).  This requires a change in the
+    format of /etc/rssh.conf to add an additional binary digit to the
+    permissions field.  /etc/rssh.conf will be automatically updated as
+    part of the package upgrade using /usr/share/rssh/conf_convert.  Patch
+    from Davide Scola.  (Closes: #284756)
+  * In mkchroot, also install /dev/zero in the chroot.  Noted in an
+    updated patch from Ross Davis sent to the rssh-discuss list.
+  * Remove postrm script that removed rssh from /etc/shells.  We do that
+    in postinst on upgrade and have for some time, so this maintainer
+    script was unnecessary.
+  * Convert to the proposed new copyright format.
+  * Swap Maintainer and Uploaders, making me the primary maintainer.  I've
+    done all of the recent uploads.
+  * Update debhelper compatibility level to V7.
+    - Use rule minimization with overrides.
+    - Move install, examples, and manpage lists into separate files.
+    - Add --enable-static if "static" is in DEB_CONFIGURE_OPTIONS rather
+      than requiring the variable be set to exactly --enable-static.
+    - Remove unnecessary debian/dirs.
+  * Update standards version to 3.8.1 (no changes required).
+  * Translation updates:
+    - Spanish, thanks Francisco Javier Cuadrado.  (Closes: #509356)
+
+ -- Russ Allbery <rra@debian.org>  Sat, 04 Apr 2009 15:41:07 -0700
+
+rssh (2.3.2-8) unstable; urgency=low
+
+  * The upstream mkchroot script uses echo -e, so make it a /bin/bash
+    script, which is less invasive than rewriting all of the echo
+    statements to printf.  Thanks, Raphael Geissert.  (Closes: #489653)
+  * Update standards version to 3.8.0.
+    - Add a README.source file pointing to the quilt documentation.
+
+ -- Russ Allbery <rra@debian.org>  Sun, 13 Jul 2008 13:09:38 -0700
+
+rssh (2.3.2-7) unstable; urgency=low
+
+  * Translation updates:
+    - Galician, thanks Jacobo Tarrio.  (Closes: #483220)
+
+ -- Russ Allbery <rra@debian.org>  Tue, 27 May 2008 19:48:25 -0700
+
+rssh (2.3.2-6) unstable; urgency=low
+
+  * Allow the -e option to rsync in conjunction with --server when it
+    contains a protocol version.  As of version three, rsync reused the -e
+    option to pass protocol information.  (Closes: #471803)
+  * Avoid a segfault when logging is disabled and the configuration file
+    could not be opened.  Thanks, Thomas Liske.  (Closes: #470262)
+  * Update the example mkchroot.sh script, thanks to Carsten Maass and
+    proctor mcduff.  (Closes: #465528)
+    - Fix the parsing of ldd output.
+    - Create /dev/null and /dev/log in the chroot.
+    - Update the sftp-server and rssh_chroot_helper paths for Debian.
+    - Copy /etc/ld.* files recursively.
+    - Add better error handling.
+  * Suggest makejail for the chroot setup.  (Closes: #458563)
+  * Clean all patches of extraneous headers and timestamps.
+  * Mention in README.Debian that the upstream maintainer doesn't plan
+    future releases and therefore major new work (such as Subversion
+    support) may require taking over upstream maintenance.
+  * Add a Homepage control field and drop the XS-* prefixes for the Vcs
+    control fields.
+  * Add the upstream copyright statement and the complete license to
+    debian/copyright.
+  * Add a watch file.
+  * debian/rules cleanup:
+    - Use a stamp file for installation.
+    - Depend on the quilt stamp file to prevent repeating configure.
+    - Use touch $@ to create stamp files.
+    - Simplify the rule structure.
+  * Update standards version to 3.7.3 (no changes required).
+
+ -- Russ Allbery <rra@debian.org>  Sun, 23 Mar 2008 12:46:52 -0700
+
+rssh (2.3.2-5) unstable; urgency=low
+
+  * Fix the logic for checking whether the setuid status of
+    rssh_chroot_helper was overridden by the sysadmin.  The previous logic
+    would only make it setuid if dpkg-statoverride couldn't be found.
+    Thanks, Peter Baumann.  (Closes: #425431)
+  * Don't add rssh to /etc/shells; restricted shells should not be listed
+    there.  Remove it from /etc/shells if upgrading from an older version.
+    Also, we don't need to conditionalize running add-shell and
+    remove-shell, since debianutils is essential and has had add-shell and
+    remove-shell since etch.  (Closes: #424672)
+  * Remove the obsolete security note from the config script.
+  * Fix the build system to not run configure twice.
+  * Add XS-Vcs-Svn and XS-Vcs-Browser control fields.
+
+ -- Russ Allbery <rra@debian.org>  Mon, 21 May 2007 19:10:54 -0700
+
+rssh (2.3.2-4) unstable; urgency=low
+
+  * Rewrite the prompt for a setuid rssh_chroot_helper to follow the
+    DevRef debconf style guidelines and not mention an incorrect path in
+    /usr/bin.  (Closes: #421000)
+  * Don't use config.status as a stamp file, since then the ordering of
+    removal causes make clean to fail after a build.  (Closes: #424281)
+  * Translation updates:
+    - Swedish, thanks Daniel Nylander.
+    - Dutch, thanks cobaco.
+    - Portuguese, thanks Miguel Figueiredo.  (Closes: #418924)
+    - German, thanks Helge Kreutzmann.  (Closes: #419252)
+    - Italian, thanks Luca Monducci.  (Closes: #419398)
+    - French, thanks Michel Grentzinger.  (Closes: #420430)
+    - Japanese, thanks Hideki Yamane.  (Closes: #422265)
+
+ -- Russ Allbery <rra@debian.org>  Tue, 15 May 2007 15:59:24 -0700
+
+rssh (2.3.2-3) unstable; urgency=low
+
+  * In the example mkchroot script, warn that /etc/passwd is copied into
+    the chroot and the user may wish to remove unnecessary users and
+    sensitive information.  (Closes: #366655)
+  * Let debhelper handle debconf purging in postrm properly, fixing
+    purging failures when debconf isn't installed.  (Closes: #417009)
+  * Remove debconf update notes for versions that are now older than
+    oldstable.  (Closes: #388957)
+  * Improve the README.Debian security information.  Move the details from
+    the debconf security note to here to eliminate the rest of the debconf
+    note abuse.
+  * Fix incorrect hyphens in the rssh man page.
+  * Recognize reconfigure in postinst.
+  * Don't die on unknown actions in maintainer scripts.
+  * Only remove rssh from /etc/shells on remove and purge, not upgrade.
+  * Use $(CURDIR) instead of `pwd` in debian/rules.
+  * Update standards version to 3.7.2 (no changes required).
+  * Update debhelper compatibility level to V5.
+  * Translation updates:
+    - Spanish, thanks Steve Lord Flaubert.  (Closes: #415185)
+    - Dutch, thanks cobaco.  (Closes: #415505)
+
+ -- Russ Allbery <rra@debian.org>  Wed, 11 Apr 2007 19:07:28 -0700
+
+rssh (2.3.2-2) unstable; urgency=low
+
+  * Translation updates:
+    - Portuguese, thanks Miguel Figueiredo.  (Closes: #410869)
+
+ -- Russ Allbery <rra@debian.org>  Thu, 15 Feb 2007 20:37:53 -0800
+
+rssh (2.3.2-1) unstable; urgency=low
+
+  * New co-maintainer.
+  * New upstream release.
+    - Incorporates fixes from NMU.  (Closes: #346322, #355935, #357715)
+    - Incorporates missing va_end also fixed in NMU.  (Closes: #339531)
+  * Don't compress example scripts.  (Closes: #333923)
+  * Mention chroot and jail in the rssh description.  (Closes: #335475)
+  * Add libnss_compat* to the chroot script.  (Closes: #335384)
+  * Drop the ssh-krb5 alternative; it doesn't use the right sftp-server
+    path.  Add Suggests pointing to the other supported commands.
+  * Drop the configuration caution from the package description; it's in
+    the man page and the long description isn't supposed to include
+    configuration information for the package.
+  * Rework README.Debian a little to point to the rssh man page instead of
+    SECURITY (upstream moved the security notes there) and emphasize
+    reading the documentation before using the package.
+  * Update logcheck rules.
+  * debian/rules and debian/control cleanup.
+    - Switch to quilt for patches.  It works essentially the same as the
+      script the package was using but is more standard and is the current
+      recommended tool.
+    - Run dh_shlibdeps to pick up proper dependency information.
+    - Get the debconf dependency from debhelper.
+    - Use debian/compat instead of setting DH_COMPAT.
+    - Use dh_installman instead of the deprecated dh_installmanpages.
+    - Remove duplicate rssh.docs configuration file.
+    - Don't install config.{guess,sub}; configure doesn't use them.
+    - Rename NEWS.Debian to NEWS so that debhelper installs it.
+    - Install logcheck rules with debhelper.
+    - Simplify unused rules and remove some boilerplate.
+  * Translation updates.
+    - Swedish, thanks Daniel Nylander.  (Closes: #341412)
+
+ -- Russ Allbery <rra@debian.org>  Fri, 21 Apr 2006 20:45:25 -0700
+
+rssh (2.3.0-1.1) unstable; urgency=high
+
+  * NMU (with maintainer permission).
+  * Backport code changes from upstream 2.3.2 release.
+    - Fixes coding error that runs cvs instead of rsync and rdist and
+      bypasses various security checks.  (Closes: #346322)
+    - Fixes use of uninitialized variables that crash the chroot helper
+      program.  (Closes: #355935)
+
+ -- Russ Allbery <rra@debian.org>  Sat, 18 Mar 2006 20:29:29 -0800
+
+rssh (2.3.0-1) unstable; urgency=high
+
+  * New upstream release.
+  * This package is a security update:
+    - closes CVE-2005-3345.
+    - Closes: #344424, #344395
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Mon, 19 Dec 2005 20:00:02 +0200
+
+rssh (2.2.3-3) unstable; urgency=low
+
+  * Changed the path of sftp-server to /usr/lib/openssh/sftp-server to
+    cope with ssh changes, in the helper script to create the chroots.
+  * Add rssh to /etc/shells (Closes: #312330).
+  * Added a logcheck file (Closes: #319802).
+  * Lowered the log output from INFO to DEBUG, to reduce the amount of
+    information rssh spits (Closes: #325684).
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Sun,  9 Oct 2005 21:48:35 +0000
+
+rssh (2.2.3-2) unstable; urgency=low
+
+  * The "I spent DebConf5 without a single package upload" release.
+  * Added a dependency on openssh-server so that the change to the new
+    sftp-server does not affect us.
+  * Also, changed the path to the new sftp-server location.
+  * Added debconf-2.0 dependency.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Fri,  5 Aug 2005 12:23:47 +0000
+
+rssh (2.2.3-1) unstable; urgency=high
+
+  * New upstream release
+  * Security fix: CAN-2004-1161. Closes: #284207.
+  * Translations update:
+    - de.po: Jens Nachtigall (Closes: #276697)
+    - ja.po: Hideki Yamane (Closes: #272899)
+    - cs.po: Miroslav Kure (Closes: #287300)
+    - it.po: Luca Monducci (Closes: #288828)
+  * Urgency set to high due to the security fix and to get it into Sarge.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Wed, 19 Jan 2005 10:02:13 +0000
+
+rssh (2.2.2-1) unstable; urgency=high
+
+  * New upstream release (Closes: #278157)
+  * Urgency set to high due to the bug #278157, which happens to be a security
+    bug. Thanks to the reporters: Hideki Yamane and Florian Weimer.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Wed, 27 Oct 2004 09:44:54 +0000
+
+rssh (2.2.1-5) unstable; urgency=low
+
+  * Translations updated:
+    - French: fr.po (Closes: #267573)
+    - Brazilian: pt_BR.po (Closes: #272433)
+    - Japanese: ja.po (Closes: #236236) although might be outdated.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Tue, 21 Sep 2004 15:07:29 +0000
+
+rssh (2.2.1-4) unstable; urgency=low
+
+  * Files CHROOT and SECURITY added to the package (Closes: #272650)
+  * mkchroot script and CHROOT file have been adapted to Debian.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Tue, 21 Sep 2004 10:52:11 +0000
+
+rssh (2.2.1-3) unstable; urgency=low
+
+  * My mistake! I added an exit to test the scripts and did not erase it
+    (Closes: #269875)
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Tue,  7 Sep 2004 06:33:03 +0000
+
+rssh (2.2.1-2) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Thu,  5 Aug 2004 11:38:58 +0300
+
+rssh (2.2.1-1) experimental; urgency=low
+
+  * New upstream release
+  * NEWS.Debian
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Thu,  8 Jul 2004 02:37:24 -0300
+
+rssh (2.2.0-1) experimental; urgency=low
+
+  * New upstream release
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Thu, 27 May 2004 23:56:12 -0300
+
+rssh (2.1.1-5) unstable; urgency=low
+
+  * Corrected dependency on ssh-krb5 (Closes: #232575)
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Fri, 13 Feb 2004 20:43:23 +0000
+
+rssh (2.1.1-4) unstable; urgency=low
+
+  * Updated Brazilain Portuguese (pt_BR) translation (Closes: #218808)
+  * Updated Japanese (ja.po) translation (Closes: #224178)
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Thu, 15 Jan 2004 16:17:47 +0000
+
+rssh (2.1.1-3) unstable; urgency=low
+
+  * Updated french (fr.po) translation file (Closes: #209173)
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Thu, 11 Sep 2003 07:44:43 +0000
+
+rssh (2.1.1-2) unstable; urgency=low
+
+  * Somehow I uploaded the wrong copy of the package. Let's try again...
+    (Closes: #208739).
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Thu,  4 Sep 2003 21:08:15 +0000
+
+rssh (2.1.1-1) unstable; urgency=low
+
+  * New upstream release (Closes: #201096)
+  * gettext is now used for debconf templates (Closes: #203673)
+  * Added french translation (Closes: #203674)
+  * rssh_chroot_helper moved to /usr/lib/rssh
+  * Standards version to 3.6.0
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Mon, 28 Jul 2003 13:43:20 +0000
+
+rssh (2.0.4-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Wed,  2 Jul 2003 21:58:08 +0000
+
+rssh (2.0.3-2) unstable; urgency=low
+
+  * $version did not get compared at all on debconf's config file.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Wed, 11 Jun 2003 21:56:35 +0000
+
+rssh (2.0.3-1) unstable; urgency=low
+
+  * New upstream release
+  * Standards-Version updated to 3.5.10
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Sat,  7 Jun 2003 17:04:09 +0000
+
+rssh (2.0.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * We ask now for SUID option during installation: Closes: #188088.
+  * Small mistake in README.Debian: Closes: #188602.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Tue,  8 Apr 2003 11:02:52 +0300
+
+rssh (2.0.1-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Fri, 28 Feb 2003 18:27:47 +0000
+
+rssh (2.0.0-1) unstable; urgency=low
+
+  * New upstream release
+  * This release solves some problems upstream will include in the next
+    upstream release: correct COPYING file, Makefile.am problem,...
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Mon, 24 Feb 2003 16:59:00 +0200
+
+rssh (1.0.4-2) unstable; urgency=low
+
+  * This time the description is _really_ not starting with "A".
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Thu, 23 Jan 2003 13:43:53 +0200
+
+rssh (1.0.4-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Thu, 23 Jan 2003 13:43:36 +0200
+
+rssh (1.0.3-2) unstable; urgency=low
+
+  * Missing file SECURITY now included (Closes: #172018)
+
+ -- Jesus Climent <data@pumuki.hispalinux.es>  Wed, 11 Dec 2002 16:44:19 +0200
+
+rssh (1.0.3-1) unstable; urgency=low
+
+  * New upstream release
+  * Dependency upon new released ssh package (Closes: #168672)
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Mon, 25 Nov 2002 08:07:08 +0200
+
+rssh (1.0.1-3) unstable; urgency=low
+
+  * Description starting with (Closes: #168556)
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Thu, 14 Nov 2002 05:15:09 +0200
+
+rssh (1.0.1-2) unstable; urgency=low
+
+  * Link to the license directory in copyright.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Fri,  1 Nov 2002 19:58:51 +0200
+
+rssh (1.0.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Static build is activated, and will deactivated when OpenSSH 3.5 is on
+    unstable.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Thu, 24 Oct 2002 14:08:37 +0300
+
+rssh (1.0.0-1) unstable; urgency=low
+
+  * New upstream release
+  * Closes: #160702.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Fri, 20 Sep 2002 17:48:24 +0300
+
+rssh (0.9.3-2) unstable; urgency=low
+
+  * debconf aware, showing the security note.
+  * the security note is shown just once.
+  * the security note is actually included in the package.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Tue, 17 Sep 2002 11:31:04 +0300
+
+rssh (0.9.3-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Thu, 12 Sep 2002 23:23:59 +0300

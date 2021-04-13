@@ -1,0 +1,50 @@
+# Danish translation rssh.
+# Copyright (C) 2012 rssh & nedenstående oversættere.
+# This file is distributed under the same license as the rssh package.
+# Joe Hansen (joedalton2@yahoo.dk), 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rssh\n"
+"Report-Msgid-Bugs-To: rra@debian.org\n"
+"POT-Creation-Date: 2007-04-11 19:20-0700\n"
+"PO-Revision-Date: 2012-02-11 12:42+0000\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want rssh_chroot_helper to be installed setuid root?"
+msgstr "Ønsker du at rssh_chroot_helper skal installeres som setuid root?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If you plan to use chroot jails for the users using rssh, the program /usr/"
+"lib/rssh/rssh_chroot_helper has to be installed setuid root so that it can "
+"chroot into the jail when the user connects.  If you are not using chroot "
+"jails, it's better to not install setuid root programs you don't need."
+msgstr ""
+"Hvis du planlægger at bruge chrootfængsler, for brugerne der bruger rssh, så "
+"skal programmet /usr/lib/rssh/rssh_chroot_helper installeres setuid root, så "
+"at programmet kan chroote ind i fængslet når brugeren forbinder. Hvis du "
+"ikke bruger chrootfængsler, så er det bedre ikke at installere setuid root-"
+"programmer, du ikke skal bruge."
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If in doubt, install it without setuid root.  If you later decide to use "
+"chroot jails, you can change this configuration by running dpkg-reconfigure "
+"rssh."
+msgstr ""
+"Hvis i tvivl, så installer uden setuid root. Hvis du senere beslutter at "
+"bruge chrootfængsler, så kan du ændre denne konfiguration ved at køre dpkg-"
+"reconfigure rssh."

@@ -1,0 +1,4 @@
+conf_convert            usr/share/rssh
+rssh                    usr/bin
+rssh.conf               etc
+rssh_chroot_helper      usr/lib/rssh

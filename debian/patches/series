@@ -1,0 +1,10 @@
+0001-Fix-invalid-option-error.patch
+0002-Honor-CFLAGS-CPPFLAGS-passed-to-configure.patch
+0003-Fix-buffer-allocation-buffer-for-fail-message.patch
+0004-Lower-syslog-priority-to-debug.patch
+0005-Fix-spelling-errors-in-manual-pages.patch
+0006-Fixes-and-improvements-to-mkchroot.sh.patch
+0007-Verify-rsync-command-options.patch
+0008-Add-support-for-Subversion-svnserve.patch
+0009-Verify-scp-command-options.patch
+0010-Check-command-line-after-chroot.patch

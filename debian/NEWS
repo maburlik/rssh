@@ -1,0 +1,26 @@
+rssh (2.3.2-9) unstable; urgency=low
+
+  This version of the rssh package adds support for Subversion by adding
+  an additional configuration parameter that, if set, allows an rssh user
+  to run svnserve -t.
+
+  This support requires changing the /etc/rssh.conf file format to add an
+  additional binary digit to the permissions field.  The package will
+  attempt to make that change automatically during the upgrade, disabling
+  svnserve for all users by default, but you may want to double-check the
+  resulting /etc/rssh.conf file to be sure it's correct.
+
+ -- Russ Allbery <rra@debian.org>  Sat, 04 Apr 2009 14:39:27 -0700
+
+rssh (2.2.1-1) unstable; urgency=medium
+
+  * This release contains 2 major updates:
+    - A minor security fix (which results only in disclosing some information
+      in chrooted jails about the non chrooted environment).
+    - New support for cvs, rdist and rsync. Due to the new protocols, a 
+      modification needs to be done in the configuration file, which has not
+      been automated in the installation scripts. Read the packages' README
+      for more information.
+
+ -- Jesus Climent <jesus.climent@hispalinux.es>  Thu,  8 Jul 2004 02:37:24 -0300
+

@@ -1,0 +1,50 @@
+# Portuguese translation for rssh's debconf messages
+# Copyright (C) 2007 Miguel Figueiredo <elmig@debianpt.org>
+# This file is distributed under the same license as the rssh package.
+# Miguel Figueiredo <elmig@debianpt.org>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rssh 2.3.2-4\n"
+"Report-Msgid-Bugs-To: rra@debian.org\n"
+"POT-Creation-Date: 2007-04-11 19:20-0700\n"
+"PO-Revision-Date: 2007-04-12 19:48+0100\n"
+"Last-Translator: Miguel Figueiredo <elmig@debianpt.org>\n"
+"Language-Team: Portuguese <traduz@debianpt.org>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want rssh_chroot_helper to be installed setuid root?"
+msgstr "Deseja que o rssh_chroot_helper seja instalado com suid root?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If you plan to use chroot jails for the users using rssh, the program /usr/"
+"lib/rssh/rssh_chroot_helper has to be installed setuid root so that it can "
+"chroot into the jail when the user connects.  If you are not using chroot "
+"jails, it's better to not install setuid root programs you don't need."
+msgstr ""
+"Se planeia utilizar 'jails chroot' para os utilizadores que utilizam rssh, "
+"tem de ser instalado o programa /usr/lib/rssh/rssh_chroot_helper com suid "
+"root para que possa fazer chroot para a 'jail' quando o utilizador se "
+"ligar.  Se não está a utilizar 'jails chroot', é melhor não instalar "
+"programas com suid root que não necessite."
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If in doubt, install it without setuid root.  If you later decide to use "
+"chroot jails, you can change this configuration by running dpkg-reconfigure "
+"rssh."
+msgstr ""
+"Em caso de dúvida, instale sem suid root.  Se mais tarde decidir utilizar "
+"'jails chroot', você pode alterar esta configuração ao correr dpkg-"
+"reconfigure rssh."

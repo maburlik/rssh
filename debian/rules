@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+
+# Enable compiler hardening flags.
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# Let the user build rssh static if they wish.
+ifneq (,$(findstring static,$(DEB_CONFIGURE_OPTIONS)))
+    CONFIGURE_OPTIONS = --enable-static
+else
+    CONFIGURE_OPTIONS = --disable-static
+endif
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	chmod a+x conf_convert
+	dh_auto_configure -- --libexecdir=/usr/lib/rssh \
+	    --with-scp=/usr/bin/scp --with-cvs=/usr/bin/cvs \
+	    --with-sftp-server=/usr/lib/openssh/sftp-server \
+	    --with-rsync=/usr/bin/rsync --with-rdist=/usr/bin/rdist \
+	    --with-svnserve=/usr/bin/svnserve $(CONFIGURE_OPTIONS)
+
+override_dh_auto_install:
+	cp rssh.conf.default rssh.conf
+
+override_dh_compress:
+	dh_compress -Xexamples

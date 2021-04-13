@@ -1,0 +1,13 @@
+Template: rssh/chroot_helper_setuid
+Type: boolean
+Default: false
+_Description: Do you want rssh_chroot_helper to be installed setuid root?
+ If you plan to use chroot jails for the users using rssh, the program
+ /usr/lib/rssh/rssh_chroot_helper has to be installed setuid root so that
+ it can chroot into the jail when the user connects.  If you are not using
+ chroot jails, it's better to not install setuid root programs you don't
+ need.
+ .
+ If in doubt, install it without setuid root.  If you later decide to use
+ chroot jails, you can change this configuration by running
+ dpkg-reconfigure rssh.

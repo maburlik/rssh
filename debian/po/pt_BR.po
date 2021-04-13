@@ -1,0 +1,53 @@
+# Debconf translations for rssh.
+# Copyright (C) 2013 THE rssh'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the rssh package.
+# Tiago Bortoletto Vaz <tiagovaz@im.ufba.br>, 2004.
+# Fernando Ike de Oliveira <fike@midstorm.org>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rssh 2.3.4-3\n"
+"Report-Msgid-Bugs-To: rra@debian.org\n"
+"POT-Creation-Date: 2007-04-11 19:20-0700\n"
+"PO-Revision-Date: 2013-09-07 17:36-0300\n"
+"Last-Translator: Fernando Ike de Oliveira <fike@midstorm.org>\n"
+"Language-Team: Brazilian Portuguese <debian-l10n-portuguese@lists.debian."
+"org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want rssh_chroot_helper to be installed setuid root?"
+msgstr ""
+"Você deseja que o rssh_chroot_helper seja instalado com \"setuid root\"?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If you plan to use chroot jails for the users using rssh, the program /usr/"
+"lib/rssh/rssh_chroot_helper has to be installed setuid root so that it can "
+"chroot into the jail when the user connects.  If you are not using chroot "
+"jails, it's better to not install setuid root programs you don't need."
+msgstr ""
+"Caso você planeje utilizar jaulas chroot para usuários usando o rssh, o "
+"programa /usr/lib/rssh/rssh_chroot_helper precisa ser instalado com \"setuid "
+"root\" para que consiga efetuar chroot para dentro da jaula quando o usuário "
+"conectar. Caso você não esteja usando jaulas chroot, é melhor não instalar "
+"programas com \"setuid root\" que você não necessite."
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If in doubt, install it without setuid root.  If you later decide to use "
+"chroot jails, you can change this configuration by running dpkg-reconfigure "
+"rssh."
+msgstr ""
+"Caso esteja em dúvida, instale-o sem o \"setuid root\". Caso você decida "
+"usar jaulas chroot posteriormente, você poderá mudar essa configuração "
+"executando dpkg-reconfigure rssh."

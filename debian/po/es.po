@@ -1,0 +1,75 @@
+# rssh po-debconf translation to Spanish
+# Copyright (C) 2007, 2008 Software in the Public Interest, SPI Inc.
+# This file is distributed under the same license as the rssh package.
+#
+# Changes:
+#   - Initial translation
+#       Steve Lord Flaubert <stonescenter@gmail.com>, 2007
+#
+#   - Updates
+#       Francisco Javier Cuadrado <fcocuadrado@gmail.com>, 2008
+#
+# Traductores, si no conoce el formato PO, merece la pena leer la
+# documentación de gettext, especialmente las secciones dedicadas a este
+# formato, por ejemplo ejecutando:
+#
+#   info -n '(gettext)PO Files'
+#   info -n '(gettext)Header Entry'
+#
+# Equipo de traducción al español, por favor, lean antes de traducir
+# los siguientes documentos:
+#
+#   - El proyecto de traducción de Debian al español
+#     http://www.debian.org/intl/spanish/
+#     especialmente las notas de traducción en
+#     http://www.debian.org/intl/spanish/notas
+#
+#   - La guía de traducción de po's de debconf:
+#     /usr/share/doc/po-debconf/README-trans
+#     o http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rssh 2.3.2-8\n"
+"Report-Msgid-Bugs-To: rra@debian.org\n"
+"POT-Creation-Date: 2007-04-11 19:20-0700\n"
+"PO-Revision-Date: 2008-12-11 19:57+0100\n"
+"Last-Translator: Francisco Javier Cuadrado <fcocuadrado@gmail.com>\n"
+"Language-Team: Debian Spanish <debian-l10n-spanish@lists.debian.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want rssh_chroot_helper to be installed setuid root?"
+msgstr "¿Desea que rssh_chroot_helper se instale con el bit SUID de root?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If you plan to use chroot jails for the users using rssh, the program /usr/"
+"lib/rssh/rssh_chroot_helper has to be installed setuid root so that it can "
+"chroot into the jail when the user connects.  If you are not using chroot "
+"jails, it's better to not install setuid root programs you don't need."
+msgstr ""
+"Si planea usar jaulas de chroot para los usuarios que usen rssh, el programa "
+"«/usr/bin/rssh_chroot_helper» tiene que instalarse con el bit SUID de root "
+"habilitado de modo que pueda cambiar a la jaula de chroot cuando el usuario "
+"se conecte. Si no está usando jaulas de chroot, es mejor no instalar los "
+"programas que no necesite con el SUID de root habilitado."
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"If in doubt, install it without setuid root.  If you later decide to use "
+"chroot jails, you can change this configuration by running dpkg-reconfigure "
+"rssh."
+msgstr ""
+"En caso de duda, se sugiere que instale sin el SUID de root habilitado. Si "
+"más tarde decide usar jaulas de chroot, puede cambiar esta configuración "
+"ejecutando: «dpkg-reconfigure rssh»."
